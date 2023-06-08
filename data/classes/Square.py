@@ -25,3 +25,21 @@ class Square:
             self.width,
             self.height
         )  # Pygame rectangle representing the square's position and size
+
+    # Get the formal notation of the tile
+    def get_coord(self):
+        columns = 'abcdefgh'
+        return columns[self.x] + str(self.y + 1)
+
+    def draw(self, display):
+        # Configures if the tile should be a light or dark tile or a highlighted tile
+        if self.highlight:
+            pygame.draw.rect(display, self.highlight_color, self.rect)  # Draw a highlighted tile
+        else:
+            pygame.draw.rect(display, self.draw_color, self.rect)  # Draw a regular tile
+
+        # Add the chess piece icons, if any
+        if self.occupying_piece is not None:
+            centering_rect = self.occupying_piece.img.get_rect()
+            centering_rect.center = self.rect.center
+            display.blit(self.occupying_piece.img, centering_rect.topleft)  # Blit the chess piece image onto the display at the square's position
