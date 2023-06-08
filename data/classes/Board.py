@@ -30,3 +30,22 @@ class Board:
         ]  # Current configuration of the board
         self.squares = self.generate_squares()  # List of Square objects representing each tile on the board
         self.setup_board()  # Set up the board with initial configurations
+    
+    def generate_squares(self):
+        output = []
+        for y in range(8):
+            for x in range(8):
+                output.append(
+                    Square(x,  y, self.tile_width, self.tile_height)  # Create a Square object for each tile
+                )
+        return output
+
+    def get_square_from_pos(self, pos):
+        # Get the Square object based on the given position (x, y)
+        for square in self.squares:
+            if (square.x, square.y) == (pos[0], pos[1]):
+                return square
+
+    def get_piece_from_pos(self, pos):
+        # Get the chess piece occupying the Square at the given position (x, y)
+        return self.get_square_from_pos(pos).occupying_piece
